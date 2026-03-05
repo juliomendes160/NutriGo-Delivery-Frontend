@@ -1,73 +1,238 @@
-# React + TypeScript + Vite
+# 🥗 NutriGo – Plataforma Inteligente de Delivery Saudável
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NutriGo é uma plataforma completa de delivery focada em alimentação saudável, conectando usuários a estabelecimentos parceiros com recomendações inteligentes, praticidade e segurança.
 
-Currently, two official plugins are available:
+Mais que delivery, o NutriGo promove um estilo de vida saudável por meio da tecnologia.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+# 📌 Visão Geral
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+A rotina moderna impacta diretamente os hábitos alimentares. O NutriGo surge como solução digital para:
 
-## Expanding the ESLint configuration
+- Facilitar o acesso a refeições saudáveis
+- Oferecer recomendações personalizadas
+- Conectar usuários a restaurantes comprometidos com bem-estar
+- Garantir segurança e escalabilidade através de arquitetura moderna
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# 🎯 Público-Alvo
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- 👩‍💻 Jovens urbanos
+- 👔 Profissionais com rotina intensa
+- 🏋️ Público fitness
+- 👨‍👩‍👧‍👦 Famílias conscientes
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# 🚀 Funcionalidades
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 👤 Gestão de Usuários
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Cadastro de usuário
+- Login autenticado com JWT
+- Atualização de dados
+- Histórico de pedidos
+- Proteção de rotas
+
+## 🛒 Sistema de Pedidos
+
+- Criação de pedidos
+- Listagem de pedidos
+- Atualização de status
+- Associação entre usuário e produtos
+
+## 🏪 Parceiros e Produtos
+
+- Cadastro de estabelecimentos
+- Listagem de restaurantes
+- Produtos vinculados a parceiros
+- Sistema de busca e filtragem
+
+---
+
+# 🧠 Arquitetura do Sistema
+
+## Frontend
+
+- React
+- TypeScript
+- Vite
+- Axios
+- Context API
+
+Repositório:
+https://github.com/Grupo-02-Turma-JavaScript-12/NutriGo-Delivery-Frontend
+
+Estrutura principal:
+
+A comunicação ocorre via HTTP utilizando Axios, garantindo separação clara entre camada de apresentação e camada de negócio.
+
+A aplicação frontend foi construída com:
+
+- React
+- TypeScript
+- Vite
+- Axios
+- Context API
+
+Repositório:
+https://github.com/Grupo-02-Turma-JavaScript-12/NutriGo-Delivery-Frontend
+
+A API foi desenvolvida com:
+
+- NestJS
+- TypeORM
+- PostgreSQL
+- JWT
+- Passport
+- Bcrypt
+- Swagger
+- Supertest
+
+A organização segue padrão modular por domínio, contendo controllers, services, entities, DTOs e guards, garantindo escalabilidade e manutenção simplificada.
+
+---
+
+# 🗄️ Modelo de Dados
+
+O banco de dados relacional utiliza PostgreSQL, com mapeamento via TypeORM.
+
+Principais entidades:
+
+- User
+- Pedido
+- Parceiro
+- Produto
+
+Relacionamentos implementados:
+
+- Um usuário pode possuir múltiplos pedidos
+- Um parceiro pode possuir múltiplos produtos
+- Um pedido pode conter múltiplos produtos
+
+Essa modelagem garante integridade referencial e organização da regra de negócio.
+
+---
+
+# 🔐 Segurança
+
+A autenticação é baseada em JWT (JSON Web Token).
+
+Fluxo implementado:
+
+1. Usuário envia credenciais para POST /auth/login
+2. A senha é validada utilizando bcrypt
+3. Um token JWT é gerado
+4. O token deve ser enviado no header:
+   Authorization: Bearer {token}
+5. Guards validam automaticamente o token em rotas protegidas
+
+O sistema também implementa:
+
+- Validação de dados via DTOs
+- Bloqueio de usuários duplicados
+- Estrutura de camadas para evitar exposição indevida de dados
+
+---
+
+# 📚 Documentação da API
+
+A documentação interativa da API está disponível via Swagger:
+
+https://nutrigo-delivery.onrender.com/swagger
+
+Através do Swagger é possível:
+
+- Visualizar todos os endpoints
+- Testar requisições
+- Ver modelos de dados
+- Conferir exemplos de payload
+- Validar autenticação
+
+Principais endpoints disponíveis:
+
+- POST /auth/login
+- POST /users
+- GET /users
+- PUT /users/:id
+- POST /pedidos
+- GET /pedidos
+- GET /parceiros
+- POST /parceiros
+- GET /produtos
+
+---
+
+# 🧪 Testes
+
+O backend possui testes automatizados E2E utilizando:
+
+- NestJS Testing Module
+- Supertest
+- SQLite em ambiente isolado
+
+Os testes cobrem:
+
+- Cadastro de usuários
+- Bloqueio de duplicidade
+- Login com geração de token
+- Acesso a rotas protegidas
+- Validação de autenticação
+
+---
+
+# ⚙️ Como Executar o Projeto
+
+Backend:
+
+npm install  
+npm run start:dev
+
+Swagger local:
+http://localhost:3000/swagger
+
+Frontend:
+
+git clone https://github.com/Grupo-02-Turma-JavaScript-12/NutriGo-Delivery-Frontend  
+cd NutriGo-Delivery-Frontend  
+npm install  
+npm run dev
+
+Frontend disponível em:
+http://localhost:5173
+
+---
+
+# ☁️ Deploy
+
+O backend está hospedado na plataforma Render, com documentação pública ativa em ambiente de produção.
+
+https://nutrigo-delivery.onrender.com/swagger
+
+---
+
+# 🌱 Diferenciais Técnicos
+
+- Arquitetura Fullstack desacoplada
+- API REST documentada com Swagger
+- Segurança robusta com JWT e bcrypt
+- Estrutura modular escalável
+- Testes automatizados E2E
+- Interface moderna com React + Vite
+- Separação clara de responsabilidades entre camadas
+
+---
+
+# 💚 Missão
+
+Promover saúde, praticidade e tecnologia em cada refeição, tornando a alimentação saudável mais acessível e conveniente.
+
+NutriGo – Saúde que chega até você.
+
+---
+
+# 👨‍💻 Equipe
+
+Projeto desenvolvido pelo Grupo 02 – Turma JavaScript 12.
