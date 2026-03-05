@@ -1,238 +1,159 @@
 # 🥗 NutriGo – Plataforma Inteligente de Delivery Saudável
 
-NutriGo é uma plataforma completa de delivery focada em alimentação saudável, conectando usuários a estabelecimentos parceiros com recomendações inteligentes, praticidade e segurança.
+NutriGo é uma plataforma digital de delivery focada em alimentação saudável, desenvolvida para conectar usuários a restaurantes parceiros por meio de uma experiência moderna, segura e escalável.
 
-Mais que delivery, o NutriGo promove um estilo de vida saudável por meio da tecnologia.
+A aplicação foi construída com foco em **arquitetura organizada, boas práticas de frontend moderno e integração segura com API REST**, promovendo não apenas pedidos online, mas um ecossistema voltado ao bem-estar.
 
 ---
 
-# 📌 Visão Geral
+## 📌 Visão do Produto
 
-A rotina moderna impacta diretamente os hábitos alimentares. O NutriGo surge como solução digital para:
+A rotina contemporânea impacta diretamente os hábitos alimentares. O NutriGo surge como uma solução tecnológica para:
 
 - Facilitar o acesso a refeições saudáveis
-- Oferecer recomendações personalizadas
-- Conectar usuários a restaurantes comprometidos com bem-estar
-- Garantir segurança e escalabilidade através de arquitetura moderna
+- Oferecer uma navegação intuitiva e rápida
+- Garantir autenticação segura com JWT
+- Integrar usuários e estabelecimentos em um sistema escalável
+
+O projeto foi estruturado pensando em **experiência do usuário, manutenibilidade e crescimento futuro da aplicação**.
 
 ---
 
-# 🎯 Público-Alvo
+## 🎯 Público-Alvo
 
 - 👩‍💻 Jovens urbanos
 - 👔 Profissionais com rotina intensa
 - 🏋️ Público fitness
-- 👨‍👩‍👧‍👦 Famílias conscientes
+- 👨‍👩‍👧‍👦 Famílias que buscam alimentação equilibrada
 
 ---
 
-# 🚀 Funcionalidades
+## 🚀 Funcionalidades Implementadas
 
-## 👤 Gestão de Usuários
+### 👤 Gestão de Usuários
 
-- Cadastro de usuário
-- Login autenticado com JWT
-- Atualização de dados
+- Cadastro e autenticação com token JWT
+- Persistência de sessão
+- Proteção de rotas privadas
+- Atualização de dados cadastrais
 - Histórico de pedidos
-- Proteção de rotas
 
-## 🛒 Sistema de Pedidos
+### 🛒 Sistema de Pedidos
 
 - Criação de pedidos
-- Listagem de pedidos
+- Listagem por usuário autenticado
 - Atualização de status
-- Associação entre usuário e produtos
+- Relacionamento entre usuários, produtos e estabelecimentos
 
-## 🏪 Parceiros e Produtos
+### 🏪 Restaurantes e Produtos
 
-- Cadastro de estabelecimentos
-- Listagem de restaurantes
-- Produtos vinculados a parceiros
+- Cadastro e listagem de parceiros
+- Produtos vinculados aos restaurantes
 - Sistema de busca e filtragem
+- Renderização dinâmica baseada na API
 
 ---
 
-# 🧠 Arquitetura do Sistema
+## 🧠 Arquitetura do Frontend
 
-## Frontend
+A aplicação segue o padrão **SPA (Single Page Application)** com separação clara de responsabilidades.
 
-- React
-- TypeScript
-- Vite
-- Axios
-- Context API
+### 🔹 Estrutura Modular
 
-Repositório:
-https://github.com/Grupo-02-Turma-JavaScript-12/NutriGo-Delivery-Frontend
+```bash
+src/
+ ├── assets/        # Arquivos estáticos
+ ├── components/    # Componentes reutilizáveis
+ ├── pages/         # Páginas da aplicação
+ ├── services/      # Configuração do Axios e consumo da API
+ ├── contexts/      # Gerenciamento global (AuthContext)
+ ├── models/        # Interfaces e tipagens TypeScript
+ ├── routes/        # Rotas públicas e privadas
+ ├── App.tsx
+ └── main.tsx
+```
 
-Estrutura principal:
+### 🔹 Padrões Utilizados
 
-A comunicação ocorre via HTTP utilizando Axios, garantindo separação clara entre camada de apresentação e camada de negócio.
-
-A aplicação frontend foi construída com:
-
-- React
-- TypeScript
-- Vite
-- Axios
-- Context API
-
-Repositório:
-https://github.com/Grupo-02-Turma-JavaScript-12/NutriGo-Delivery-Frontend
-
-A API foi desenvolvida com:
-
-- NestJS
-- TypeORM
-- PostgreSQL
-- JWT
-- Passport
-- Bcrypt
-- Swagger
-- Supertest
-
-A organização segue padrão modular por domínio, contendo controllers, services, entities, DTOs e guards, garantindo escalabilidade e manutenção simplificada.
+- Componentização e reutilização de código
+- Context API para controle global de autenticação
+- Interceptors do Axios para injeção automática do token JWT
+- Separação entre camada de visualização e camada de serviços
+- Tipagem forte com TypeScript
 
 ---
 
-# 🗄️ Modelo de Dados
+## 🛠️ Stack Tecnológica
 
-O banco de dados relacional utiliza PostgreSQL, com mapeamento via TypeORM.
-
-Principais entidades:
-
-- User
-- Pedido
-- Parceiro
-- Produto
-
-Relacionamentos implementados:
-
-- Um usuário pode possuir múltiplos pedidos
-- Um parceiro pode possuir múltiplos produtos
-- Um pedido pode conter múltiplos produtos
-
-Essa modelagem garante integridade referencial e organização da regra de negócio.
+- **React** — Construção da interface
+- **TypeScript** — Segurança e escalabilidade
+- **Vite** — Build rápido e ambiente otimizado
+- **Axios** — Comunicação com API REST
+- **React Router DOM** — Gerenciamento de rotas
+- **Context API** — Estado global de autenticação
 
 ---
 
-# 🔐 Segurança
+## 🔐 Fluxo de Autenticação
 
-A autenticação é baseada em JWT (JSON Web Token).
-
-Fluxo implementado:
-
-1. Usuário envia credenciais para POST /auth/login
-2. A senha é validada utilizando bcrypt
-3. Um token JWT é gerado
-4. O token deve ser enviado no header:
-   Authorization: Bearer {token}
-5. Guards validam automaticamente o token em rotas protegidas
-
-O sistema também implementa:
-
-- Validação de dados via DTOs
-- Bloqueio de usuários duplicados
-- Estrutura de camadas para evitar exposição indevida de dados
+1. Usuário realiza login.
+2. Backend retorna um token JWT.
+3. Token é armazenado no `localStorage`.
+4. Axios adiciona automaticamente o header `Authorization` nas requisições protegidas.
+5. Rotas privadas validam autenticação antes de renderizar páginas sensíveis.
 
 ---
 
-# 📚 Documentação da API
+## ⚙️ Configuração do Ambiente
 
-A documentação interativa da API está disponível via Swagger:
+Crie um arquivo `.env` na raiz do projeto:
 
-https://nutrigo-delivery.onrender.com/swagger
-
-Através do Swagger é possível:
-
-- Visualizar todos os endpoints
-- Testar requisições
-- Ver modelos de dados
-- Conferir exemplos de payload
-- Validar autenticação
-
-Principais endpoints disponíveis:
-
-- POST /auth/login
-- POST /users
-- GET /users
-- PUT /users/:id
-- POST /pedidos
-- GET /pedidos
-- GET /parceiros
-- POST /parceiros
-- GET /produtos
+```bash
+VITE_API_URL=http://localhost:8080
+```
 
 ---
 
-# 🧪 Testes
+## 🧪 Como Executar o Projeto
 
-O backend possui testes automatizados E2E utilizando:
+Clone o repositório:
 
-- NestJS Testing Module
-- Supertest
-- SQLite em ambiente isolado
+```bash
+git clone https://github.com/Grupo-02-Turma-JavaScript-12/NutriGo-Delivery-Frontend
+cd NutriGo-Delivery-Frontend
+```
 
-Os testes cobrem:
+Instale as dependências:
 
-- Cadastro de usuários
-- Bloqueio de duplicidade
-- Login com geração de token
-- Acesso a rotas protegidas
-- Validação de autenticação
+```bash
+npm install
+```
 
----
+Execute o projeto:
 
-# ⚙️ Como Executar o Projeto
-
-Backend:
-
-npm install  
-npm run start:dev
-
-Swagger local:
-http://localhost:3000/swagger
-
-Frontend:
-
-git clone https://github.com/Grupo-02-Turma-JavaScript-12/NutriGo-Delivery-Frontend  
-cd NutriGo-Delivery-Frontend  
-npm install  
+```bash
 npm run dev
+```
 
-Frontend disponível em:
+Acesse no navegador:
+
+```
 http://localhost:5173
+```
 
 ---
 
-# ☁️ Deploy
+## 📈 Evoluções Futuras
 
-O backend está hospedado na plataforma Render, com documentação pública ativa em ambiente de produção.
-
-https://nutrigo-delivery.onrender.com/swagger
-
----
-
-# 🌱 Diferenciais Técnicos
-
-- Arquitetura Fullstack desacoplada
-- API REST documentada com Swagger
-- Segurança robusta com JWT e bcrypt
-- Estrutura modular escalável
-- Testes automatizados E2E
-- Interface moderna com React + Vite
-- Separação clara de responsabilidades entre camadas
+- Implementação de carrinho persistente
+- Sistema de avaliação de restaurantes
+- Integração com gateway de pagamento
+- Testes automatizados (Jest / React Testing Library)
+- Pipeline CI/CD
+- Deploy em ambiente cloud (Vercel ou similar)
 
 ---
 
-# 💚 Missão
+## 👨‍💻 Desenvolvimento
 
-Promover saúde, praticidade e tecnologia em cada refeição, tornando a alimentação saudável mais acessível e conveniente.
-
-NutriGo – Saúde que chega até você.
-
----
-
-# 👨‍💻 Equipe
-
-Projeto desenvolvido pelo Grupo 02 – Turma JavaScript 12.
+Projeto desenvolvido em equipe com foco em práticas modernas de desenvolvimento frontend, organização arquitetural e integração com backend REST.
